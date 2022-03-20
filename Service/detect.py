@@ -180,7 +180,7 @@ def detect(save_img=False):
 
     print('Done. (%.3fs)' % (time.time() - t0))
 
-
+#qwerasdf
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()  # 创建一个ArgumentParser对象
     # 向对象中添加你要关注的命令行参数和选项
