@@ -2,10 +2,10 @@ from UI.Setting.SettingWin import SettingWin
 from utils.CommonHelper import CommonHelper
 from PyQt5.QtCore import QSettings, pyqtSignal
 from PyQt5.QtWidgets import QFileDialog
-from  MvCameraControl_class import *
+#from  MvCameraControl_class import *
 import os
 
-deviceList = MV_CC_DEVICE_INFO_LIST()
+#deviceList = MV_CC_DEVICE_INFO_LIST()
 class Setting(SettingWin):
     train_modal_signal = pyqtSignal(object)
     def __init__(self,configuration):
@@ -22,7 +22,7 @@ class Setting(SettingWin):
         self.cfg_path=''
         self.save_img_path = ''
         self.cams = {"1":self.carmer_one,"2":self.carmer_two,"3":self.carmer_three,"4":self.carmer_four,"5":self.carmer_all}
-        self.nDeviceNum = deviceList.nDeviceNum
+        #self.nDeviceNum = deviceList.nDeviceNum
         self.carmer_one.clicked.connect(lambda: self.checkBoxStatus(str(1)))
         self.carmer_two.clicked.connect(lambda: self.checkBoxStatus(str(2)))
         self.carmer_three.clicked.connect(lambda: self.checkBoxStatus(str(3)))
@@ -138,7 +138,7 @@ class Setting(SettingWin):
             self.cfg_path = fname[0]
         else:
             file_path = QFileDialog.getExistingDirectory(self, "选取文件夹", self.cwd)
-            if (file_path is not ""):
+            if (file_path != ""):
                 lineEdit.setText(file_path)
 
 
