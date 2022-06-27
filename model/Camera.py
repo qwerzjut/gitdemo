@@ -102,6 +102,7 @@ class Camera(QObject):
             else:
                 print("Warning: Get Packet Size fail! ret[0x%x]" % nPacketSize)
 
+
         # ch:设置触发模式为ON(外触发) | en:Set trigger mode as on
         ret = self.cam.MV_CC_SetEnumValue("TriggerMode", 1)
         if ret != 0:
@@ -112,8 +113,6 @@ class Camera(QObject):
         # if ret != 0:
         #     print("Set TriggerSource failed! ret[0x%x]" % ret)
         #     sys.exit()
-
-
 
 
         ret = self.cam.MV_CC_SetFloatValue("TriggerDelay", 0)
