@@ -113,6 +113,9 @@ class Camera(QObject):
         #     print("Set TriggerSource failed! ret[0x%x]" % ret)
         #     sys.exit()
 
+
+
+
         ret = self.cam.MV_CC_SetFloatValue("TriggerDelay", 0)
         if ret != 0:
             print("set trigger delay fail! ret[0x%x]" % ret)
