@@ -14,7 +14,6 @@ CURSOR_GRAB = Qt.OpenHandCursor
 
 # class Canvas(QGLWidget):
 
-
 class Canvas(QWidget):
     zoomRequest = pyqtSignal(int)
     scrollRequest = pyqtSignal(int, int)
