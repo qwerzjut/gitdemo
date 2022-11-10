@@ -45,7 +45,7 @@ class TitleBar(QWidget):
           font.setFamily('Webdings')
           # 最小化按钮
           self.buttonMinimum = QPushButton(
-              '0', self, clicked=self.windowMinimumed.emit, font=font, objectName='buttonMinimum')
+              '0', self, clicked=self.windowMinimumed, font=font, objectName='buttonMinimum')
           layout.addWidget(self.buttonMinimum)
           # 最大化/还原按钮
           self.buttonMaximum = QPushButton(

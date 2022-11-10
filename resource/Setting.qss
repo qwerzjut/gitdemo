@@ -44,7 +44,26 @@ QSpinBox{
     color:white;
     selection-color:#DCDCDC;
 }
-
+QComboBox{
+    font-size:14px;
+    font-family:Roman times;
+    border:1px solid #242424;
+    border-radius:3px;
+    padding:2px;
+    background:#484848;
+    color:white;
+    selection-color:#DCDCDC;
+}
+QDoubleSpinBox{
+    font-size:14px;
+    font-family:Roman times;
+    border:1px solid #242424;
+    border-radius:3px;
+    padding:2px;
+    background:#484848;
+    color:white;
+    selection-color:#DCDCDC;
+}
 .QLabel:disabled{
     color : gray;
 }

@@ -64,6 +64,7 @@ class SettingWin(QWidget):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.Acquisition_Control = QtWidgets.QGroupBox(Setting)
+
         font = QtGui.QFont()
         font.setPointSize(15)
         self.Acquisition_Control.setFont(font)
@@ -173,6 +174,7 @@ class SettingWin(QWidget):
         self.gridLayout_3 = QtWidgets.QGridLayout(self.Image_Format_Control)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.WidthMax_label = QtWidgets.QLabel(self.Image_Format_Control)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.WidthMax_label.setFont(font)
@@ -184,6 +186,7 @@ class SettingWin(QWidget):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.WidthMax_value_label.sizePolicy().hasHeightForWidth())
         self.WidthMax_value_label.setSizePolicy(sizePolicy)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.WidthMax_value_label.setFont(font)
@@ -193,6 +196,7 @@ class SettingWin(QWidget):
         self.HeightMax_label = QtWidgets.QLabel(self.Image_Format_Control)
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.HeightMax_label.setFont(font)
         self.HeightMax_label.setObjectName("HeightMax_label")
         self.gridLayout_3.addWidget(self.HeightMax_label, 1, 0, 1, 1)
@@ -202,6 +206,7 @@ class SettingWin(QWidget):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.HeightMax_value_label.sizePolicy().hasHeightForWidth())
         self.HeightMax_value_label.setSizePolicy(sizePolicy)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HeightMax_value_label.setFont(font)
@@ -209,6 +214,7 @@ class SettingWin(QWidget):
         self.HeightMax_value_label.setObjectName("HeightMax_value_label")
         self.gridLayout_3.addWidget(self.HeightMax_value_label, 1, 1, 1, 1)
         self.Width_label = QtWidgets.QLabel(self.Image_Format_Control)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.Width_label.setFont(font)
@@ -218,6 +224,7 @@ class SettingWin(QWidget):
         self.Width_spinBox.setObjectName("Width_spinBox")
         self.gridLayout_3.addWidget(self.Width_spinBox, 2, 1, 1, 1)
         self.Height_label = QtWidgets.QLabel(self.Image_Format_Control)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.Height_label.setFont(font)
@@ -233,6 +240,7 @@ class SettingWin(QWidget):
         self.model_setting = QtWidgets.QGroupBox(Setting)
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.model_setting.setFont(font)
         self.model_setting.setObjectName("model_setting")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.model_setting)
@@ -240,6 +248,7 @@ class SettingWin(QWidget):
         self.gridLayout_2.setVerticalSpacing(6)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.weights_label = QtWidgets.QLabel(self.model_setting)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.weights_label.setFont(font)
@@ -256,6 +265,7 @@ class SettingWin(QWidget):
         self.gridLayout_2.addWidget(self.weights_lineEdit, 0, 1, 1, 1)
         self.weights_upload = QtWidgets.QPushButton(self.model_setting)
         self.weights_upload.setMinimumSize(QtCore.QSize(0, 35))
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.weights_upload.setFont(font)
@@ -347,8 +357,10 @@ class SettingWin(QWidget):
         self.carmer_all.setText(_translate("Setting", "All"))
         self.carmer_four.setText(_translate("Setting", "Carmer four"))
         self.carmer_three.setText(_translate("Setting", "Carmer three"))
-        self.Acquisition_Control.setTitle(_translate("Setting", "Acquisition Control"))
-        self.fps_label.setText(_translate("Setting", "Acquisition Frame Rate(Fps):"))
+
+        # self.Acquisition_Control.setTitle(_translate("Setting", "Acquisition Control"))
+        # self.fps_label.setText(_translate("Setting", "Acquisition Frame Rate(Fps):"))
+
         self.TrainSetting.setTitle(_translate("Setting", "Train Setting"))
         self.epoch_label.setText(_translate("Setting", "epochs:"))
         self.batch_size_label.setText(_translate("Setting", "batch-szie:"))

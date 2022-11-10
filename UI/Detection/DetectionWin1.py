@@ -33,6 +33,7 @@ class Ui_Detection(object):
         self.camera4_result_label.setText("")
         self.camera4_result_label.setObjectName("camera4_result_label")
         self.gridLayout.addWidget(self.camera4, 1, 1, 1, 1)
+
         self.carmer1 = QtWidgets.QWidget(Detection)
         self.carmer1.setObjectName("carmer1")
         self.camera1_detection_label = QtWidgets.QLabel(self.carmer1)
@@ -47,6 +48,7 @@ class Ui_Detection(object):
         self.camera1_result_label.setText("")
         self.camera1_result_label.setObjectName("camera1_result_label")
         self.gridLayout.addWidget(self.carmer1, 0, 0, 1, 1)
+
         self.camera3 = QtWidgets.QWidget(Detection)
         self.camera3.setObjectName("camera3")
         self.camera3_detection_label = QtWidgets.QLabel(self.camera3)
@@ -61,6 +63,7 @@ class Ui_Detection(object):
         self.camera3_result_label.setText("")
         self.camera3_result_label.setObjectName("camera3_result_label")
         self.gridLayout.addWidget(self.camera3, 1, 0, 1, 1)
+
         self.camera2 = QtWidgets.QWidget(Detection)
         self.camera2.setObjectName("camera2")
         self.camera2_detection_label = QtWidgets.QLabel(self.camera2)
@@ -75,6 +78,7 @@ class Ui_Detection(object):
         self.camera2_result_label.setText("")
         self.camera2_result_label.setObjectName("camera2_result_label")
         self.gridLayout.addWidget(self.camera2, 0, 1, 1, 1)
+
         self.verticalLayout_2.addLayout(self.gridLayout)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")

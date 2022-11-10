@@ -60,3 +60,8 @@ background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 
 }
 
 
+QLabel{
+    color:white;
+    font-size:17px;
+    font-family:Roman times;
+}

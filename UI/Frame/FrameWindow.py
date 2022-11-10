@@ -234,7 +234,7 @@ if __name__ == '__main__':
      app = QApplication(sys.argv)
      mainWnd = FramelessWindow()
      icon = QIcon()
-     icon.addPixmap(QPixmap("../resource/logo3.ico"))
+     icon.addPixmap(QPixmap("../../resource/logo3.ico"))
      mainWnd.setWindowIcon(icon)
      mainWnd.setWindowTitle('SMMD')
      mainWnd.resize(QSize(1500,1000))

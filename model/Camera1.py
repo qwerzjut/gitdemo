@@ -1,5 +1,6 @@
 import os
 import copy
+import winsound
 import numpy as np
 from MvCameraControl_class import *
 from PyQt5.QtCore import pyqtSignal, QObject
@@ -7,6 +8,7 @@ from PyQt5.QtCore import pyqtSignal, QObject
 import threading
 import cv2
 import time
+import math
 import random
 # from Service.pre_treat import roi_split
 from project.parse_config import parse_rbc_name
@@ -103,24 +105,19 @@ class Camera(QObject):
                 print("Warning: Get Packet Size fail! ret[0x%x]" % nPacketSize)
 
 
-        # ch:设置触发模式为ON(外触发) | en:Set trigger mode as on
-        ret = self.cam.MV_CC_SetEnumValue("TriggerMode", 1)
+        # ch:设置触发模式为OFF(0) | en:Set trigger mode as off
+        ret = self.cam.MV_CC_SetEnumValue("TriggerMode", 0)
         if ret != 0:
             print("set trigger mode fail! ret[0x%x]" % ret)
             sys.exit()
 
-        #设置触发模式
-        ret = self.cam.MV_CC_SetEnumValue("TriggerSource", 13)
-        if ret != 0:
-            print("Set TriggerSource failed! ret[0x%x]" % ret)
+        # 设置帧率
+        ret = self.cam.MV_CC_SetFloatValue("AcquisitionFrameRate",23)
+        if ret !=0:
+            print("set Acquisition Frame Rate failed! ret[0x%x]" % ret)
             sys.exit()
 
-        #设置触发延时
-        ret = self.cam.MV_CC_SetFloatValue("TriggerDelay", 0)
-        if ret != 0:
-            print("set trigger delay fail! ret[0x%x]" % ret)
-            sys.exit()
-
+        # 设置触发缓存
         ret = self.cam.MV_CC_SetBoolValue("TriggerCacheEnable", True)
         if ret != 0:
             print("set trigger cache enable fail! ret[0x%x]" % ret)
@@ -152,24 +149,24 @@ class Camera(QObject):
             sys.exit()
         nPayloadSize = stParam.nCurValue
 
-        # ch:开启Event | en:Set Event of ExposureEnd On
-        ret = self.cam.MV_CC_SetEnumValueByString("EventSelector","Line0RisingEdge")
-        if ret != 0:
-            print ("set enum value by string fail! ret[0x%x]" % ret)
-            sys.exit()
-
-
-        # 开启事件
-        ret = self.cam.MV_CC_SetEnumValueByString("EventNotification","On")
-        if ret != 0:
-            print ("set enum value by string fail! ret[0x%x]" % ret)
-            sys.exit()
-
-        # ch:注册事件回调 | en:Register event callback
-        ret = self.cam.MV_CC_RegisterEventCallBackEx("Line0RisingEdge", self.call_back_fun,None)
-        if ret != 0:
-            print ("register event callback fail! ret [0x%x]" % ret)
-            sys.exit()
+        # # ch:开启Event | en:Set Event of ExposureEnd On
+        # ret = self.cam.MV_CC_SetEnumValueByString("EventSelector","Line0RisingEdge")
+        # if ret != 0:
+        #     print ("set enum value by string fail! ret[0x%x]" % ret)
+        #     sys.exit()
+        #
+        #
+        # # 开启事件
+        # ret = self.cam.MV_CC_SetEnumValueByString("EventNotification","On")
+        # if ret != 0:
+        #     print ("set enum value by string fail! ret[0x%x]" % ret)
+        #     sys.exit()
+        #
+        # # ch:注册事件回调 | en:Register event callback
+        # ret = self.cam.MV_CC_RegisterEventCallBackEx("Line0RisingEdge", self.call_back_fun,None)
+        # if ret != 0:
+        #     print ("register event callback fail! ret [0x%x]" % ret)
+        #     sys.exit()
 
 
         # ch:开始取流 | en:Start grab image
@@ -272,69 +269,154 @@ class Camera(QObject):
         print("Background method")
         stFrameInfo = MV_FRAME_OUT_INFO_EX()
         memset(byref(stFrameInfo), 0, sizeof(stFrameInfo))
-        former=[]
+        t = 0
+        coefficient = math.pi / 23
         while True:
             ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
-            if ret==0:
+            if ret == 0:
                 print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
                     stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
                 picture = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
+                picture = cv2.cvtColor(picture, cv2.COLOR_BGR2RGB)
                 cv2.namedWindow("ROI", cv2.WINDOW_KEEPRATIO)
-                x,y,w,h=cv2.selectROI(windowName="ROI", img=picture, showCrosshair=False, fromCenter=False)
-                print(x,y,w,h)
+                x, y, w, h = cv2.selectROI(windowName="ROI", img=picture, showCrosshair=False, fromCenter=False)
                 cv2.destroyAllWindows()
-                # 消耗第二次拍摄的图像
-                ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
                 break
             else:
                 print("no data[0x%x]" % ret)
             if self.g_bExit == True:
                 break
+        k = y + h
+        H = h
+
         while True:
             ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
             if ret == 0:
-                if len(former):   #不为空
-                    self.detect_num+=1
-                    print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
-                         stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
-                    latter = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
-                    latter = cv2.cvtColor(latter, cv2.COLOR_BGR2RGB)
-                    detected_image, flag = self.detect(former,latter,x,y,w,h)
-                    if flag:
-                        self.good_num += 1
-                    self.detect_show_signal.emit(detected_image,flag,camNo)
-                    former=[]
-                else:
-                    self.detect_num += 1
-                    print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
+                self.detect_num += 1
+                print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
                     stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
-                    former = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
-                    former = cv2.cvtColor(former, cv2.COLOR_BGR2RGB)
-                    # self.show_picture_signal.emit(former,camNo)
+                latter = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
+
+                latter = cv2.cvtColor(latter, cv2.COLOR_BGR2RGB)
+                # latter=self.roi(latter,x,y,w,h)
+                h = abs(round(H * math.sin(coefficient * t)))
+                y = k - h
+                t += 1
+                detected_image, flag = self.detect(picture, latter, x, y, w, h)
+                if flag:
+                    self.good_num += 1
+                self.detect_show_signal.emit(detected_image, flag, camNo)
             else:
                 print("no data[0x%x]" % ret)
             if self.g_bExit == True:
                 break
 
     def train_work_thread(self, cam=0, pData=0, nDataSize=0, camNo=0):
+        print("Frame method")
         stFrameInfo = MV_FRAME_OUT_INFO_EX()
         memset(byref(stFrameInfo), 0, sizeof(stFrameInfo))
+        t = 23/2
+        coefficient = math.pi / 23
+        while True:
+            ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
+            if ret==0:
+                print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
+                    stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
+                picture = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
+                picture = cv2.cvtColor(picture, cv2.COLOR_BGR2RGB)
+                cv2.namedWindow("ROI", cv2.WINDOW_KEEPRATIO)
+                x,y,w,h=cv2.selectROI(windowName="ROI", img=picture, showCrosshair=False, fromCenter=False)
+                cv2.destroyAllWindows()
+                break
+            else:
+                print("no data[0x%x]" % ret)
+            if self.g_bExit == True:
+                break
+        k=y+h
+        H=h
+        former=[]
         while True:
             ret = cam.MV_CC_GetOneFrameTimeout(pData, nDataSize, stFrameInfo, 1000)
             if ret == 0:
-                print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
-                    stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
-
-
+                h = abs(round(H * math.sin(coefficient * t)))
+                y = k - h
+                if t%23!=23/2:
+                    self.detect_num+=1
+                    print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
+                         stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
+                    latter = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
+                    cv2.imwrite(r'D:\picture'+str(stFrameInfo.nFrameNum)+'jpg',latter)
+                    latter = cv2.cvtColor(latter, cv2.COLOR_BGR2RGB)
+                    # latter=self.roi(latter,x,y,w,h)
+                    detected_image, flag = self.detect(former,latter,x,y,w,h)
+                    t += 1
+                    if flag:
+                        self.good_num += 1
+                    self.detect_show_signal.emit(detected_image,flag,camNo)
+                else:
+                    self.detect_num += 1
+                    print("get one frame: Width[%d], Height[%d], nFrameNum[%d]" % (
+                        stFrameInfo.nWidth, stFrameInfo.nHeight, stFrameInfo.nFrameNum))
+                    former = np.asarray(pData).reshape((stFrameInfo.nHeight, stFrameInfo.nWidth))
+                    former = cv2.cvtColor(former, cv2.COLOR_BGR2RGB)
+                    t += 1
             else:
-                ret = cam.MV_CC_SetCommandValue("TriggerSoftware")
-                if ret !=0:
-                    print("Software Trigger failed ret[0x%x]" % ret)
                 print("no data[0x%x]" % ret)
             if self.g_bExit == True:
                 break
 
 
+
+    def detect(self,former,latter,x,y,w,h):
+        latter=cv2.cvtColor(latter,cv2.COLOR_RGB2GRAY)
+        former=cv2.cvtColor(former,cv2.COLOR_RGB2GRAY)
+        roiLatter=self.roi(latter,x,y,w,h)
+        roiFormer = self.roi(former, x, y, w, h)
+        (mean, stddv) = cv2.meanStdDev(former)
+        dif=cv2.subtract(roiFormer,roiLatter)
+        thresh, bins = cv2.threshold(dif, mean[0, 0], 255, cv2.THRESH_BINARY)
+        kernel = np.ones((3, 3), np.uint8)
+        median = cv2.medianBlur(bins, 3)
+        dilate = cv2.dilate(median, kernel, iterations=1)
+        contours, hierarchy = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        nums = len(contours)
+        max = 0
+        sign = 0
+        flag = False
+        latter=cv2.cvtColor(latter,cv2.COLOR_GRAY2RGB)
+        # 防止image成为局部变量
+        image = latter
+        for i in range(nums):
+            image = cv2.drawContours(image, contours[sign], 0, (0, 0, 255), 5)
+            rect = cv2.minAreaRect(contours[i])  # rect返回矩形的特征信息，其结构为【最小外接矩形的中心（x，y），（宽度，高度），旋转角度】
+            area = rect[1][0] * rect[1][1]
+            if max < area:
+                max = area
+                sign = i
+        print(max)
+        if max>8500:
+            # rect = cv2.minAreaRect(contours[sign])
+            # points = cv2.boxPoints(rect)  # 得到最小外接矩形的四个点坐标
+            # points = np.int0(points)  # 坐标值取整
+            image = cv2.drawContours(image, contours[sign], 0, (0, 0, 255), 5)  # 直接在原图上绘制矩形框
+
+            winsound.Beep(440,1000)
+            flag=True
+        return image,flag
+
+
+    #掩膜方法
+    def roi(self,picture,widthstart,heigthstart,width,heigth):
+        if (heigth+heigthstart > picture.shape[0]) | (width+widthstart > picture.shape[1]):
+            print("结束值越界")
+            sys.exit()
+        if (heigthstart < 0) | (widthstart < 0)| (width <0) |(heigth<0):
+            print("开始值越界")
+            sys.exit()
+        mask = np.zeros(picture.shape, np.uint8)
+        mask[heigthstart:heigthstart+heigth, widthstart:widthstart+width] = 255
+        picture = cv2.bitwise_and(picture, mask)
+        return picture
 
 
 

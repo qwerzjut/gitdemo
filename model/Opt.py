@@ -3,7 +3,9 @@ class Opt(object):
         super(Opt, self).__init__()
         self.fps = 10
         self.width = 400
+            # 400
         self.height = 360
+            # 360
         self.agnostic_nms=False
         self.augment=False
         self.cfg='E:\defect_detection-main\cfg\yolov3-tiny.cfg'
@@ -22,7 +24,14 @@ class Opt(object):
         self.epochs = 800
         self.batchSize = 16
         self.confidence = 80
-        self.Canny_th = 50
+        self.Canny_th = 80
         self.Zhazi_tj = 43
-
+        # self.framenum=18
+        # self.x=0
+        # self.y=0
+        # self.w=0
+        # self.h=0
+        # self.gain=0
+        # self.exposuretime=0
+        # self.max=0
 

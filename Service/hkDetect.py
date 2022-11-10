@@ -192,8 +192,9 @@ class hkDetect:
         img_canny = cv2.Canny(img_gauss, 250, 20, 3)
         n = len(img_canny[img_canny == 255])  # 统计图片白点数量
         print(n)
-        if n > 4500:  # 白色像素值大于4500则判断为缺陷
-           return True
+        # if n > 4500:  # 白色像素值大于4500则判断为缺陷
+        if n > self.opt.Canny_th*100:  # 白色像素值大于4500则判断为缺陷
+            return True
         else:
             return False
 

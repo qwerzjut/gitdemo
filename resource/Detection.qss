@@ -10,6 +10,26 @@ QLabel{
     font-size:17px;
     font-family:Roman times;
 }
+QLabel#label4_1_new,#label4_2_new,#label4_3_new,#label4_4_new,#label4_5_new,#label4_6_new{
+    color:white;
+    font-size:13px;
+    font-family:Roman times;
+}
+QLabel#label1_1_new,#label1_2_new,#label1_3_new,#label1_4_new,#label1_5_new,#label1_6_new{
+    color:white;
+    font-size:13px;
+    font-family:Roman times;
+}
+QLabel#label2_1_new,#label2_2_new,#label2_3_new,#label2_4_new,#label2_5_new,#label2_6_new{
+    color:white;
+    font-size:13px;
+    font-family:Roman times;
+}
+QLabel#label3_1_new,#label3_2_new,#label3_3_new,#label3_4_new,#label3_5_new,#label3_6_new{
+    color:white;
+    font-size:13px;
+    font-family:Roman times;
+}
 
 
 QWidget#camera1,#camera2,#camera3,#camera4{
@@ -55,16 +75,100 @@ QPushButton#grayButton {
     margin: 4px 2px;
     color: white;
 }
-QPushButton#RedButton:hover,#GreenButton:hover,#BlueButton:hover,#grayButton:hover {
+QPushButton#grayButton4 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton4_1 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton4_2 {
+    background-color:red;
+    border-radius: 8px;
+
+    color: white;
+}
+
+QPushButton#grayButton1 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton1_1 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton1_2 {
+    background-color:red;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton2 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton2_1 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton2_2 {
+    background-color:red;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton3 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton3_1 {
+    background-color:#1C8B58;
+    border-radius: 8px;
+
+    color: white;
+}
+QPushButton#grayButton3_2 {
+    background-color:red;
+    border-radius: 8px;
+
+    color: white;
+}
+
+QPushButton#RedButton:hover,#GreenButton:hover,#BlueButton:hover,#grayButton:hover,#grayButton4:hover,#grayButton4_1:hover,#grayButton4_2:hover{
+    background-color: white;
+    border: 2px solid #f44336;
+    color: black;
+}
+QPushButton#grayButton2:hover,#grayButton2_1:hover,#grayButton2_2:hover,#grayButton1:hover,#grayButton1_1:hover,#grayButton1_2:hover,#grayButton3:hover
+,#grayButton3_1:hover,#grayButton3_2:hover{
     background-color: white;
     border: 2px solid #f44336;
     color: black;
 }
 
-QPushButton#RedButton:pressed,#GreenButton:pressed,#BlueButton:pressed,#grayButton:pressed {
+QPushButton#RedButton:pressed,#GreenButton:pressed,#BlueButton:pressed,#grayButton:pressed ,#grayButton4:pressed,#grayButton4_1:pressed,#grayButton4_2:pressed{
     background-color: #06AD56;
 }
 
+QPushButton#grayButton2:pressed,#grayButton2_1:pressed,#grayButton2_2:pressed,#grayButton1:pressed,#grayButton1_1:pressed,#grayButton1_2:pressed,#grayButton3:pressed
+,#grayButton3_1:pressed,#grayButton3_2:pressed{
+    background-color: #06AD56;
+}
 QTableView {
 	background:transparent;/*背景透明*/
     color: white;
@@ -76,7 +180,7 @@ QTableView {
     border: 2px groove gray;
 }
 QHeaderView {
-    color: white;
+    color: black;
     font-size: bold 10pt;
     background-color: dimgray;
     border: 0px solid white;
