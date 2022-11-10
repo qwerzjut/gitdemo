@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DetectionWin2</class>
+ <widget class="QWidget" name="DetectionWin2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1320</width>
+    <height>890</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>1031</width>
+     <height>1051</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="camera1" native="true">
+      <widget class="QLabel" name="camera1_label">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>10</y>
+         <width>54</width>
+         <height>12</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1号相机</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="camera1_result_label">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>0</y>
+         <width>801</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QWidget" name="camera2" native="true">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>530</y>
+         <width>1029</width>
+         <height>521</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="camera2_label">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>10</y>
+          <width>54</width>
+          <height>12</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>2号相机</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="camera2_detection_label">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>971</width>
+          <height>481</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="camera2_result_label">
+        <property name="geometry">
+         <rect>
+          <x>163</x>
+          <y>2</y>
+          <width>841</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>30</y>
+         <width>941</width>
+         <height>471</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>510</y>
+         <width>251</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>510</y>
+         <width>54</width>
+         <height>12</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>850</x>
+         <y>510</y>
+         <width>54</width>
+         <height>12</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>40</y>
+         <width>54</width>
+         <height>12</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>1100</x>
+     <y>80</y>
+     <width>201</width>
+     <height>461</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>图片格式控制</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>1220</x>
+     <y>420</y>
+     <width>77</width>
+     <height>112</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="camera1_button">
+    <item>
+     <widget class="QPushButton" name="oc_canmra1">
+      <property name="text">
+       <string>打开相机</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="collection1">
+      <property name="text">
+       <string>开始采集</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="snap_image1">
+      <property name="text">
+       <string>抓拍图像</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="start_recording1">
+      <property name="text">
+       <string>开始录像</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>1220</x>
+     <y>940</y>
+     <width>77</width>
+     <height>112</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QPushButton" name="oc_camera2">
+      <property name="text">
+       <string>打开相机</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="collection2">
+      <property name="text">
+       <string>开始采集</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="snap_image2">
+      <property name="text">
+       <string>抓拍图像</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="start_recording2">
+      <property name="text">
+       <string>开始录像</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
